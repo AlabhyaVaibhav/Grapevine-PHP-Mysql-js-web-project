@@ -1,0 +1,136 @@
+(function($) {
+
+	skel.breakpoints({
+		wide: '(max-width: 1680px)',
+		normal: '(max-width: 1280px)',
+		narrow: '(max-width: 980px)',
+		narrower: '(max-width: 840px)',
+		mobile: '(max-width: 736px)',
+		mobilep: '(max-width: 480px)'
+	});
+
+	$(function() {
+
+		var	$window = $(window),
+			$body = $('body');
+
+		// Disable animations/transitions until the page has loaded.
+			$body.addClass('is-loading');
+
+			$window.on('load', function() {
+				$body.removeClass('is-loading');
+			});
+
+		// Fix: Placeholder polyfill.
+			$('form').placeholder();
+
+		// Prioritize "important" elements on narrower.
+			skel.on('+narrower -narrower', function() {
+				$.prioritize(
+					'.important\\28 narrower\\29',
+					skel.breakpoint('narrower').active
+				);
+			});
+
+	});
+
+})(jQuery);
+
+$(document).on("click",".upload",function(e){
+    
+    e.preventDefault();
+	$('.random').click();
+});
+$(document).on("click","input[type=button]",function(e){
+    
+		e.preventDefault();
+   });
+$('#demo-category').change(function(){
+
+		subject=this.value;
+
+});
+$(document).on("click","#tup",function(e){
+
+
+		alert("Clicked");
+		e.preventDefault();
+		
+		var tid=$('#tid').val();
+		alert(subject);
+		var batch=$('#batch').val();
+		var topic=$('#topic').val();
+		var extra=$('#extra').val();
+
+		var formData = new FormData();
+		formData.append("tup","0215");
+		formData.append('tid',tid);
+		formData.append('subject',subject);
+		formData.append('topic',topic);
+		formData.append('extra',extra);
+		formData.append('batch',batch);
+		formData.append('Upload', $('#tup-upl')[0].files[0]);
+		
+
+		
+				 $.ajax({
+          type: "POST",
+          url: "tup.php",
+          data: formData,
+          //use contentType, processData for sure.
+          contentType: false, 
+          processData: false,
+          beforeSend: function() {
+         
+            },
+            success: function(msg) {                    
+                alert(msg);                 
+            },
+            error: function() {                   
+             
+            }
+        })
+
+});
+$('#ac').on('change', function() {
+
+	var opt=this.value;
+
+	if(opt==2)
+	{
+		$('.email-stuff').hide();
+		$.ajax({
+									  type: "POST",
+									  url: "index.php",
+									  data: {tch:"tch"},
+									  cache: false,
+									  success: function(data){
+									    
+									    
+									    	$('#uid').attr("placeholder","Teacher ID");
+		$('#bapt').attr("placeholder","Department");
+									  }
+									});
+
+		
+	}
+	else
+	{
+		$('.email-stuff').show();
+		$('#uid').attr("placeholder","Student Roll No.");
+		$('#bapt').attr("placeholder","Batch eg. B15");
+		$.ajax({
+									  type: "POST",
+									  url: "index.php",
+									  data: {tch:"stud"},
+									  cache: false,
+									  success: function(data){
+									    
+									    
+									    	$('#uid').attr("placeholder","Teacher ID");
+		$('#bapt').attr("placeholder","Department");
+									  }
+									});
+	}
+
+	});
