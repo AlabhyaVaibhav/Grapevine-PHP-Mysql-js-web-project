@@ -14,8 +14,7 @@ As a fresher in college this is my first project. This web app is based on php, 
 	-Secure and fast portal
 	
 ## Project Team
-
-Himanshu Kumar
-Sarthak Mishra
-Kumar Aniket 
-Alabhya Vaibhav
+	-Himanshu Kumar
+	-Sarthak Mishra
+	-Kumar Aniket 
+	-Alabhya Vaibhav
